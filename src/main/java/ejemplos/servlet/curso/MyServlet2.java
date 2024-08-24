@@ -11,6 +11,43 @@ import java.io.PrintWriter;
 @WebServlet(urlPatterns = "/myServlet2")
 public class MyServlet2 extends HttpServlet {
 
+	protected void doPost(HttpServletRequest request,
+						  HttpServletResponse response) throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		// Obtener el nombre y el sexo enviados desde el formulario
+		String nombre = request.getParameter("nombre");
+		String sexo = request.getParameter("sexo");
+
+		// Generar el mensaje de bienvenida según el sexo
+		String saludo;
+		if ("mujer".equalsIgnoreCase(sexo)) {
+			saludo = "Bienvenida";
+		} else if ("hombre".equalsIgnoreCase(sexo)) {
+			saludo = "Bienvenido";
+		} else {
+			saludo = "Bienvenid@";
+		}
+
+		// Enviar página HTML con el saludo personalizado
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head><title>Bienvenida</title></head>");
+		out.println("<body>");
+		out.println("<h1>" + saludo + " " + nombre + "!</h1>");
+		out.println("</body></html>");
+
+		// Cerrar PrintWriter
+		out.close();
+	}
+}
+
+/*
+@WebServlet(urlPatterns = "/myServlet2")
+public class MyServlet2 extends HttpServlet {
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -24,4 +61,4 @@ public class MyServlet2 extends HttpServlet {
 		out.println("<h1>Bienvenido!!</h1>");
 	}
 
-}
+}*/
